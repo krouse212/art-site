@@ -1,5 +1,5 @@
 const modals = () => {
-    function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = true){
+    function bindModal(triggerSelector, modalSelector, closeSelector, destroy = false){
         const trigger = document.querySelectorAll(triggerSelector),
             modal = document.querySelector(modalSelector),
             close = document.querySelector(closeSelector),
@@ -12,6 +12,10 @@ const modals = () => {
             item.addEventListener('click', (e) => {
                 if(e.target){
                     e.preventDefault();
+                }
+
+                if(destroy) {
+                    item.remove();
                 }
 
                 windows.forEach(item=> {
@@ -35,13 +39,14 @@ const modals = () => {
         });
 
         modal.addEventListener('click', (e) => {
-            if(e.target === modal && closeClickOverlay){
+            if(e.target === modal ){
                 windows.forEach(item=> {
                     item.style.display = 'none';
                 });
                 modal.style.display = "none";
                 document.body.style.overflow = '';
                 document.body.style.marginRight = `0px`;
+                document.body.classList.remove('modal-open');
             }
         });
     }
@@ -60,6 +65,9 @@ const modals = () => {
             if (!display){
                 document.querySelector(selector).style.display='block';
                 document.body.classList.add('modal-open');
+
+                let scroll = calcScroll();
+                document.body.style.marginRight = `${scroll}px`;
             }
 
         }, time);
@@ -83,8 +91,9 @@ const modals = () => {
     
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
+    bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
 
-    // showModalByTime('.popup-consultation', 60000);
+    showModalByTime('.popup-consultation', 6000);
 
 }
 
