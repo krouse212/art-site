@@ -1050,8 +1050,8 @@ var modals = function modals() {
 
   bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
   bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
-  bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
-  openByScroll('.fixed-gift'); // showModalByTime('.popup-consultation', 6000);
+  bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true); // openByScroll('.fixed-gift');
+  // showModalByTime('.popup-consultation', 60000);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
