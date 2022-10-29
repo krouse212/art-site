@@ -1,4 +1,7 @@
 const modals = () => {
+
+    let btnPressed = false;
+
     function bindModal(triggerSelector, modalSelector, closeSelector, destroy = false){
         const trigger = document.querySelectorAll(triggerSelector),
             modal = document.querySelector(modalSelector),
@@ -14,12 +17,15 @@ const modals = () => {
                     e.preventDefault();
                 }
 
+                btnPressed = true;
+
                 if(destroy) {
                     item.remove();
                 }
 
                 windows.forEach(item=> {
                     item.style.display = 'none';
+                    item.classList.add('animated', 'fadeIn');
                 });
 
                 modal.style.display = "block";
@@ -70,6 +76,8 @@ const modals = () => {
                 document.body.style.marginRight = `${scroll}px`;
             }
 
+            btnPressed = true;
+
         }, time);
     }
 
@@ -88,12 +96,24 @@ const modals = () => {
 
         return scrollWidth;
     };
+
+
+    function openByScroll(selector) {
+        window.addEventListener('scroll', () => {
+
+            if (!btnPressed && ((window.pageYOffset + document.documentElement.clientHeight)*1.01 >= document.documentElement.scrollHeight)) {
+                document.querySelector(selector).click();
+            }
+        });
+    }
+
+
     
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
     bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
-
-    showModalByTime('.popup-consultation', 6000);
+    openByScroll('.fixed-gift');
+    // showModalByTime('.popup-consultation', 6000);
 
 }
 
