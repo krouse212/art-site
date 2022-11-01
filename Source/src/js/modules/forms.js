@@ -38,15 +38,19 @@ const forms = () => {
         inputs.forEach(item => {
             item.vaue = '';
         });
+        upload.forEach(item => {
+            item.previousElementSibling.textContent = 'Файл не выбран';
+        });
     };
+    
 
     upload.forEach(item => {
         item.addEventListener('input', () =>{
             console.log(item.files[0]);
-            let dots;
-            item.files[0].name.split('.')[0].length > 5 ? dots = '...' : dots = '.';
-            const name = item.files[0].name.split('.')[0].substring(0, 6) + dots + item.files[0].name.split('.')[1];
-            console.log(name);
+            const arr = item.files[0].name.split('.');
+            let dots = arr[0].length > 6 ? '...' : '.'; 
+            const name = arr[0].substring(0, 6) + dots + arr[1];
+            item.previousElementSibling.textContent = name;
         });
     });
 
