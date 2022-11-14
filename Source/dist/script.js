@@ -4435,7 +4435,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])('#size', '#material', '#options', '.promocode', '.calc-price');
   Object(_modules_filter__WEBPACK_IMPORTED_MODULE_7__["default"])();
   Object(_modules_pictureSize__WEBPACK_IMPORTED_MODULE_8__["default"])('.sizes-block');
-  Object(_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])(' .accordion-heading', '.accordion-block');
+  Object(_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])(' .accordion-heading');
 });
 
 /***/ }),
@@ -4454,21 +4454,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var accordion = function accordion(triggersSelector, itemsSelector) {
-  var btns = document.querySelectorAll(triggersSelector),
-      blocks = document.querySelectorAll(itemsSelector);
-  blocks.forEach(function (block) {
-    block.classList.add('animated', 'fadeInDown');
-  });
+  var btns = document.querySelectorAll(triggersSelector);
   btns.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      if (!this.classList.contains('active')) {
-        btns.forEach(function (btn) {
-          btn.classList.remove('active', 'active-style');
-        });
-        this.classList.add('active', 'active-style');
+      this.classList.toggle('active-style');
+      this.nextElementSibling.classList.toggle('active-content');
+
+      if (this.classList.contains('active-style')) {
+        this.nextElementSibling.style.maxHeight = this.nextElementSibling.scrollHeight + 80 + 'px';
+      } else {
+        this.nextElementSibling.style.maxHeight = '0px';
       }
     });
-  });
+  }); // blocks = document.querySelectorAll(itemsSelector);
+  // blocks.forEach(block => {
+  //     block.classList.add('animated', 'fadeInDown');
+  // });
+  // btns.forEach(btn => {
+  //     btn.addEventListener('click', function() {
+  //         if (!this.classList.contains('active')) {
+  //             btns.forEach(btn => {
+  //                 btn.classList.remove('active', 'active-style');
+  //             });
+  //             this.classList.add('active', 'active-style');
+  //         }
+  //     });
+  // });
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (accordion);
